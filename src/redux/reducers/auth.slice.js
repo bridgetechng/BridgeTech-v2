@@ -6,10 +6,11 @@ const initialState = {
     uid: '',
     name: '',
     email: '',
-  },
+    monthlyConnection: null,
+    usedConnection: null
+   },
   isLoading: false,
   isAuth: false,
-  isAdmin:true,
   error: '',
   error2: '',
   message: '',
@@ -31,7 +32,6 @@ const loginSlice = createSlice({
         state.isLoading = false;
         state.user = action.payload.user;
         state.user.uid = action.payload.uid;
-        state.user.isAdmin = action.payload.isAdmin ? action.payload.isAdmin:true;
         state.isAuth = true;
         state.error = '';
         state.message = '';
@@ -41,6 +41,9 @@ const loginSlice = createSlice({
       (state.isLoading = false);
         (state.error = payload.errorMessage);
     },
+    updateUsedConnection: (state, action) => {
+      state.user.usedConnection = action.payload.usedConnectionCount;
+  },
     logoutPending: (state) => {
       state.isLoading = true;
     },
@@ -77,6 +80,7 @@ export const {
   loginPending,
   loginSuccess,
   loginFailed,
+  updateUsedConnection,
   logoutPending,
   logoutSuccess,
   signupPending,

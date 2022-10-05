@@ -5,16 +5,11 @@ import clsx from 'clsx';
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { selectNavigation} from 'app/store/fuse/navigationSlice';
-import { selectNavigationAdmin} from 'app/store/fuse/navigationAdminSlice';
+import { selectNavigation } from 'app/store/fuse/navigationSlice';
 import { navbarCloseMobile } from '../../store/fuse/navbarSlice';
 
 function Navigation(props) {
-  const { user } = useSelector((state) => state.login);
-
-  console.log("admin is ...",user.isAdmin)
-  const navigation = useSelector(user.isAdmin === true ?selectNavigationAdmin:selectNavigation);
- 
+  const navigation = useSelector(selectNavigation);
   const theme = useTheme();
   const mdDown = useMediaQuery(theme.breakpoints.down('md'));
   const dispatch = useDispatch();

@@ -1,26 +1,32 @@
 import {fetchUsersPending, fetchUsersSuccess, fetchUsersFailed, fetchRealTimeUsersSuccess, fetchConnectedUserSuccess,
     initiatePending, initiateSuccess, initiateSuccess2, initiateFailed, clearUser} from '../reducers/user.slice';
-  import { db, fb, auth, storage } from '../../config/firebase';
+ import { updateUsedConnection } from 'redux/reducers/auth.slice';
+    import { db, fb, auth, storage } from '../../config/firebase';
 import { sendChat } from './chat.action';
 import { result } from 'lodash';
 import { clearChat } from 'redux/reducers/chat.slice';
   
-    export const fetchAllUsers = (uid) => async (dispatch) => {
-            dispatch(fetchUsersPending());
-            // db.collection('users').where("uid", "!=", fb.auth().currentUser.uid)
-            db.collection('users')
-            .where("uid", "!=", uid)
-            .get()
-            .then((snapshot) => {
-                const users = snapshot.docs.map((doc) => ({ ...doc.data() }));
-                console.log('Users, ', users);
-                dispatch(fetchUsersSuccess(users));
-        }).catch((error) => {
-                var errorMessage = error.message;
-                console.log('Error fetching profile', errorMessage);
-                dispatch(fetchUsersFailed({ errorMessage }));
-        });
-    
+
+export const fetchAllUsers = (uid) => async (dispatch) => {
+    dispatch(fetchUsersPending());
+    // db.collection('users').where("uid", "!=", fb.auth().currentUser.uid)
+    var fetchUsers = db.collection('users')
+    // fetchUsers = fetchUsers.where("uid", "!=", uid)
+    fetchUsers = fetchUsers.where("intro", "!=", null)
+    fetchUsers.get()
+    .then((snapshot) => {
+        const users = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        const filteredUser = users.filter(user => user.uid != uid);
+        console.log('Filtered User\'s', filteredUser );
+        // }
+        // dispatch(fetchUsersSuccess(users));
+        dispatch(fetchUsersSuccess(filteredUser));
+}).catch((error) => {
+        var errorMessage = error.message;
+        console.log('Error fetching profile', errorMessage);
+        dispatch(fetchUsersFailed({ errorMessage }));
+});
+
 };
 
 
@@ -44,12 +50,12 @@ export const fetchRealTimeUsers = (uid) => async (dispatch) => {
 };
 
 
-export const initiateConnection = (type, user1, user2) => (dispatch) => {
-    dispatch(fetchConnection(user1, user2, type));
+export const initiateConnection = (type, user1, user2, usedConnection) => (dispatch) => {
+    dispatch(fetchConnection(user1, user2, type, usedConnection));
 };
 
 
-  export const fetchConnection = (user1, user2, type) => async (dispatch) => {
+  export const fetchConnection = (user1, user2, type, usedConnection) => async (dispatch) => {
         var connect = db.collection("connections")
         connect = connect.where("user1", "==", user1)
         connect = connect.where("user2", "==", user2)
@@ -74,9 +80,26 @@ export const initiateConnection = (type, user1, user2) => (dispatch) => {
                         user1: user1,
                         user2: user2,
                       }))
+                 //after sending default chat message, then update usedConnection
+
+                 console.log('Update Used Connection:- ', docRef);
+                 var userRef = db.collection("users").doc(user1);
+                 userRef.update({
+                    usedConnection: usedConnection + 1,
+                })
+                .then(() => {
+                    const usedConnectionCount = usedConnection + 1;
+                  console.log('Used connection updated:- ', usedConnection);
+                  dispatch(updateUsedConnection({ usedConnectionCount }));
+                })
+                .catch((error) => {
+                  var errorMessage = error.message;
+                  console.log('Error updating used connection:', errorMessage);
+                });
+
                 })
                 .catch((err) => {
-                  var errorMessage = error.message;
+                  var errorMessage = err.message;
                   console.log('error creating new connection: ', errorMessage);
                 });
             }else{
@@ -325,8 +348,24 @@ export const fetchRealTimeConnections2 = (uid) => async (dispatch) => {
 
 
            
-
-
+              export const rollOverConnections = () => async (dispatch) => {
+                const collection = await db
+                  .collection("users")
+                  .get()
+                collection.forEach(doc=> {
+                  doc.ref
+                    .update({
+                      usedConnection: 0
+                    })
+                    .then(() => {
+                        console.log('Reset sucessfully');
+                      })
+                      .catch((error) => {
+                        var errorMessage = error.message;
+                        console.log('Error resetting connections', errorMessage);
+                      });
+                })
+              }
 
 
 

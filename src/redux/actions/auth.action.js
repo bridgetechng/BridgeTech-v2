@@ -47,6 +47,8 @@ export const signup = (user, history) => async (dispatch) => {
           password: user.password,
           photoUrl: static_img,
           lastActive: new Date().getTime(),
+          monthlyConnection: 5,
+          usedConnection: 0,
         })
       }).then(() => {
         dispatch(signupSuccess());

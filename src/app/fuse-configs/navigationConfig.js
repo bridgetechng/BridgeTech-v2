@@ -5,17 +5,11 @@ import ar from './navigation-i18n/ar';
 import en from './navigation-i18n/en';
 import tr from './navigation-i18n/tr';
 
-
-
 i18next.addResourceBundle('en', 'navigation', en);
 i18next.addResourceBundle('tr', 'navigation', tr);
 i18next.addResourceBundle('ar', 'navigation', ar);
 
-/*const user = 'admin';*/
-
-/*TRYING TO GET SOMETHING FROM FIREBASE AND SEE IF NAVIGATION CONFIG WILL CHANGE BASED ON IT */
-
-
+const user = 'admin';
 
 const navigationConfig = [
   {
@@ -78,7 +72,46 @@ const navigationConfig = [
       },
     ],
   },
-   
+  {
+    id: 'admin',
+    title: 'Admin',
+    type: 'group',
+    icon: 'web',
+    children: [
+      {
+        id: 'create-developer',
+        title: 'Create Developer',
+        type: 'item',
+        icon: 'photo',
+        url: '/apps/admin/createdeveloper',
+        // url: '/apps/coming-soon2',
+      },
+      {
+        id: 'developer-list',
+        title: 'Developer List',
+        type: 'item',
+        icon: 'event_available',
+       // url: '/apps/bookdev',
+         url: '/apps/admin/developerlist',
+      },
+      {
+        id: 'booked-classes',
+        title: 'Booked Classes',
+        type: 'item',
+        icon: 'event_available',
+       // url: '/apps/bookdev',
+        url: '/apps/admin/assignedbookings',
+      },
+      {
+        id: 'registered-users',
+        title: 'Registered Users',
+        type: 'item',
+        icon: 'event_available',
+       // url: '/apps/bookdev',
+        url: '/apps/admin/registeredUsers',
+      },
+    ]
+  }
 ];
 
 export default navigationConfig;
