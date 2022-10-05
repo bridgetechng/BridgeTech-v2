@@ -34,6 +34,14 @@ const navigationConfig = [
         // url: '/apps/coming-soon2',
       },
       {
+        id: 'bootcamp',
+        title: 'Bootcamp',
+        type: 'item',
+        icon: 'photo',
+        url: '/apps/bootcamp',
+        // url: '/apps/coming-soon2',
+      },
+      {
         id: 'book-dev',
         title: 'Book Dev',
         type: 'item',

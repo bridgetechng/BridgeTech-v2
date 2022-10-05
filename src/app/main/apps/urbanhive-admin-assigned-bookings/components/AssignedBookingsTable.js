@@ -50,6 +50,7 @@ const columns = [
   },
 ];
 
+<<<<<<< HEAD
 const rows = [
   { id: 1, lastName: 'Elon', firstName: 'Tesla', phoneNumber:'09035197246', email: 'ogorkelvin289@gmail.com'},
   { id: 2, lastName: 'Blake', firstName: 'Jade', phoneNumber:'08119477917' , email:'mydelivery250@gmail.com'},
@@ -61,6 +62,9 @@ const rows = [
   { id: 8, lastName: 'Frances', firstName: 'Rossini', phoneNumber:'08105565130'  , email:'user_test2@bridgetechadvance.com'},
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', phoneNumber:'08105565130' , email:'user_test1@bridgetechadvance.com'},
 ];
+=======
+let rows = [];
+>>>>>>> 81c6c41abb47a063645f65ec5d59bd8a83b16382
 
 export default function BasicTable() {
   return (
@@ -91,16 +95,71 @@ export default function BasicTable() {
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
+<<<<<<< HEAD
               <TableCell align="right">{row.lastName}</TableCell>
               <TableCell align="right">{row.firstName}</TableCell>
               <TableCell align="right">{row.phoneNumber}</TableCell>
               <TableCell align="right">{row.email}</TableCell>
               <TableCell align="center"><AddBoxIcon/></TableCell>
+=======
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.email}</TableCell>
+              <TableCell align="center">{row.developerBooked}</TableCell>
+              <TableCell align="center">{new Date(row.Day.seconds*1000).toDateString()}</TableCell>
+              <TableCell align="center">{row.time.seconds}</TableCell>
+              <TableCell align="center"><Link to = {`/apps/admin/editappointment/${row.id}`}><AddBoxIcon/></Link></TableCell>
+>>>>>>> 81c6c41abb47a063645f65ec5d59bd8a83b16382
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+<<<<<<< HEAD
+=======
+      
+   {/*just some spacing Using HTML br */}
+    <br/>
+    <br/>
+    <br/>
+
+    <h1>Past Appointments</h1>
+     <br/>
+    <TableContainer component={Paper} >
+      <Table sx={{ minWidth: 650 }}  aria-label="simple table">
+        <TableHead>
+          <TableRow >
+            <TableCell>S/N</TableCell>
+            <TableCell align="center">Name</TableCell>
+            <TableCell align="center">email</TableCell>
+            <TableCell align="center">Developer Booked</TableCell>
+            <TableCell align="center">Day</TableCell>
+            <TableCell align="center">Time</TableCell>
+           
+          </TableRow>
+
+        </TableHead>
+        <TableBody>
+          {pastAppointments.map((row,index) => (
+             <TableRow
+             key={index}
+             
+             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+           >
+             <TableCell component="th" scope="row">
+               {index + 1}
+             </TableCell>
+             <TableCell align="center">{row.name}</TableCell>
+             <TableCell align="center">{row.email}</TableCell>
+             <TableCell align="center">{row.developerBooked}</TableCell>
+             <TableCell align="center">{new Date(row.Day.seconds*1000).toDateString()}</TableCell>
+             <TableCell align="center">{row.time}</TableCell>
+             
+           </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+>>>>>>> 81c6c41abb47a063645f65ec5d59bd8a83b16382
     </>
   );
 }

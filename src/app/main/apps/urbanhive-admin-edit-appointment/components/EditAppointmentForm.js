@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Controls from "./controls/Controls";
+import DatePicker from "./controls/DatePicker";
 import { useForm, Form } from './useForm';
 import { TextField,InputLabel, MenuItem, Select, Grid, Button } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
@@ -7,11 +8,14 @@ import {Avatar, Badge, Chip, Divider, Stack, Alert, IconButton } from '@mui/mate
 import { Crop } from '@mui/icons-material';
 import { styled,createTheme,ThemeProvider } from '@mui/material/styles';
 import * as skillSetService from "./skillSetService";
+import * as currentDevelopers from "./currentDevelopers";
+import * as timeSlots from "./timeSlots";
 import CropEasy from './crop/CropEasy';
 import '../../app.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory,useParams } from 'react-router-dom';
 import { createProfile, fetchProfile, uploadImage } from 'redux/actions/profile.action';
+import { updateAppointment,fetchSelectedAppointment,deleteSelectedAppointment  } from 'redux/actions/appointments.action';
 import { resetMsg } from 'redux/reducers/profile.slice';
 import { fb, static_img } from 'config/firebase';
 
@@ -75,26 +79,45 @@ const type = [
 
 
 
+  
+ 
+
+ 
+
+
+
 export default function ProfileForm() {
+   
+ /*dispatching actions */
+
+
+ 
+  
+  
+  
+  
+  const {id} = useParams();
+    const appointmentId = id
+    console.log(appointmentId)
     const nodeRef = useRef(null);
     const dispatch = useDispatch();
     const history = useHistory();
     const { user } = useSelector((state) => state.login);
-    const { createDevData, isLoading, error, message } = useSelector((state) => state.createDev);
+const { createDevData/*, isLoading, error, message*/ } = useSelector((state) => state.createDev);
     const [showError, setshowError] = useState(false);
     const [showError2, setshowError2] = useState(false);
     const [file, setFile] = useState(null);
     const [photoURL, setPhotoURL] = useState(createDevData.photoUrl != '' ? createDevData.photoUrl : user.photoUrl);
     // const [photoURL, setPhotoURL] = useState(null);
     const [openCrop, setOpenCrop] = useState(false);
-  
+   
 
     const initialFValues = {
       id: user.uid,
       firstName: createDevData.firstName == '' ? '' : createDevData.firstName,
       lastName: createDevData.lastName == '' ? '' : createDevData.lastName,
       intro: createDevData.intro == '' ? '' : createDevData.intro,
-      skills_needed: createDevData.skills_needed == '' ? '' : createDevData.skills_needed,
+      skills_needed:  createDevData.skills_needed == '' ? '' : createDevData.skills_needed,
       isTechnical: createDevData.isTechnical == '' ? 'nil' : createDevData.isTechnical,
       lookingFor: createDevData.lookingFor == '' ? 'nil' : createDevData.lookingFor,
       city: createDevData.city == '' ? '' : createDevData.city,
@@ -103,9 +126,32 @@ export default function ProfileForm() {
       // isPermanent: false,
   }
 
+  
+
+  /*getting the selected appointment */
+  useEffect(() => {
+    dispatch(fetchSelectedAppointment(appointmentId));
+       
+  }, [])
+
+  /*getting reducers from our dispatched actions, even though they have thier own empty values before dispatches take place */
+const { SelectedAppointment,appointmentUpdated ,error,message, isLoading} = useSelector((state) => state.appointments);
+console.log(appointmentUpdated,message)
+   
+const [meetupDate,setMeetupDate] = useState(new Date())
+   const [meetupTime,setMeetupTime] = useState(``)
+   const [changedDeveloper,setChangedDeveloper] = useState(``)
 
 
-    const handleChange = (e) => {
+   //an update for sending all
+  const updates =  {
+    Day:meetupDate,
+    time:meetupTime,
+    developerBooked:changedDeveloper
+
+ }
+
+ const handleChange = (e) => {
         const file = e.target.files[0];
         if (file) {
           setFile(file);
@@ -157,7 +203,7 @@ export default function ProfileForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
-       console.log('Photo URL: ', photoURL);
+      /* console.log('Photo URL: ', photoURL);
        console.log('File URL: ', file);
         e.preventDefault()
         if(values.isTechnical == 'nil'){
@@ -185,7 +231,9 @@ export default function ProfileForm() {
           }else{
             dispatch(uploadImage(profile, user, file, resetForm));
           } 
-        }
+        }*/
+
+        dispatch(updateAppointment(appointmentId,updates));
     }
 
     return !openCrop ? (
@@ -201,36 +249,46 @@ export default function ProfileForm() {
       >
         <p style={{ fontSize: '11px' }}><b>{error}</b></p>
       </Alert><br/></div>}
-
-      {message && <div><Alert
+       
+      
+      {appointmentUpdated && <div><Alert
         severity="success" color="success"
         action={
-          <Button color="inherit" size="small" style={{ fontSize: '15px' }} onClick={() => {dispatch(resetMsg())}}>
+          <Button color="inherit" size="small" style={{ fontSize: '15px'}} >
             <b>X</b>
           </Button>
         }
       >
+        
         <p style={{ fontSize: '11px' }}><b>{message}</b></p>
       </Alert><br/></div>
       /*SUBMISSION ALERT ENDING */
       }
+       {/*the back button */}
+        
+        <Button  size="small" style={{ fontSize: '15px',backgroundColor:'black',color:"white", marginBottom:"20px"}} onClick={()=>{history.push('/apps/admin/assignedbookings')}}>
+            <b>BACK</b>
+          </Button>
+
+        
+
         <h2>Current Details:</h2>
          <br/>
          <Grid container spacing={4}>
                 
                 <Grid item xs={12} sm={6}>
-                 <p>Topic: <h4>Hard Coded for now</h4></p>
+                 <p>Topic: <h4 style={{color:'red'}}>{SelectedAppointment.topic.toUpperCase()}</h4></p>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                 <p>Chosen Developer:<h4>Hard Coded for now</h4></p>
+                 <p>Chosen Developer:<h4>{SelectedAppointment?SelectedAppointment.developerBooked:"hi"}</h4></p>
                 </Grid>
                 
                 <Grid item xs={12} sm={6}>
-                <p>Chosen Day:<h4>Hard Coded for now</h4></p>
+                <p>Chosen Day:<h4>{SelectedAppointment?(new Date(SelectedAppointment.Day.seconds*1000).toDateString()):"hi"}</h4></p>
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                <p>Chosen Time:<h4>Hard Coded for now</h4></p>
+                <p>Chosen Time:<h4>{SelectedAppointment? (SelectedAppointment.time) :"hi"}</h4></p>
                 </Grid>
 
               
@@ -255,23 +313,25 @@ export default function ProfileForm() {
                 <Controls.Select
                         name="Developer"
                         label="Change developer"
-                        value={values.skillset}
-                        onChange={handleInputChange}
-                        options={skillSetService.getSkillset()}
+                       /* value={values.skillset}*/
+                        onChange={(e)=>{setChangedDeveloper(e.target.value);console.log(changedDeveloper)}}
+                        options={currentDevelopers.getcurrentDevelopers()}
                         error={errors.skillset}
                     />
                     {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                <Controls.Select
+               <DatePicker name="Date" label="Change date" value={meetupDate}   onChange={(value)=>{setMeetupDate(value)}}/>
+              
+               {/* <Controls.Select
                         name="Date"
                         label="Change date"
-                        value={values.skillset}
+                        value={meetupDate}
                         onChange={handleInputChange}
                         options={skillSetService.getSkillset()}
                         error={errors.skillset}
-                    />
+                />*/}
                     {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
@@ -279,9 +339,9 @@ export default function ProfileForm() {
                       <Controls.Select
                         name="Time"
                         label="Change Time"
-                        value={values.skills_needed}
-                        onChange={handleInputChange}
-                        options={skillSetService.getSkillset()}
+                       /* value={values.skills_needed}*/
+                       onChange={(e)=>{setMeetupTime(e.target.value);console.log(meetupTime)}}
+                        options={timeSlots.getTimeSlots()}
                         error={errors.skills_needed}
                     />
                 </Grid>
@@ -297,7 +357,11 @@ export default function ProfileForm() {
           <Controls.Button
                     text="Cancel"
                     color="secondary"
-                    onClick={resetForm} />
+                    onClick={()=>{dispatch(deleteSelectedAppointment(appointmentId));
+                      history.push('/apps/admin/assignedbookings')  
+                        }
+         
+                            }/>
 
         
           </label>
