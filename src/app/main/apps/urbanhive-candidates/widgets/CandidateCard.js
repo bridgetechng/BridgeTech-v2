@@ -236,12 +236,12 @@ const userList = output.length ? (
         : 'This user does not have an intro yet!'}
         <br/>
         <h4><b>Technical</b></h4>
-        <Divider classes={{root: classes.divider}} />
+        {/* <Divider classes={{root: classes.divider}} /> */}
         {users.isTechnical == 'yes' ? 'Yes' : 'No'}
         <br/><br/>
         
         <h4><b>Skillset</b></h4>
-        <Divider classes={{root: classes.divider}} />
+        {/* <Divider classes={{root: classes.divider}} /> */}
         {users.skillset}
         </Box>
         </Grid></Grid>
