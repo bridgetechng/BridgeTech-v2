@@ -104,7 +104,7 @@ export default function BasicTable() {
             <TableCell align="center">Email</TableCell>
             <TableCell align="center">Phone Number</TableCell>
             
-            <TableCell align="center">Registered On</TableCell>
+            <TableCell align="center">Location</TableCell>
             
           </TableRow>
 
@@ -124,7 +124,7 @@ export default function BasicTable() {
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.phone && "0"+row.phone}</TableCell>
              
-              <TableCell align="center">{new Date(row.registeredOn.seconds*1000).toLocaleDateString()}</TableCell>
+              <TableCell align="center">{row.city}</TableCell>
              
             </TableRow>
           ))}

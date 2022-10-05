@@ -20,7 +20,6 @@ import ProfileConfig from './urbanhive-profile/ProfileConfig';
 import LoginConfig from './urbanhive-login/LoginConfig';
 import RegisterConfig from './urbanhive-register/RegisterConfig';
 import SessionsConfig from './urbanhive-sessions/SessionsConfig';
-import BootcampConfig from './urbanhive-bootcamp/BootcampConfig';
 import BookDevConfig from './urbanhive-bookdev/BookDevConfig';
 import RegisteredUsersConfig from './urbanhive-admin-registered-users/RegisteredUsersConfig';
 import AssignedBookingsConfig from './urbanhive-admin-assigned-bookings/AssignedBookingsConfig';
@@ -38,7 +37,6 @@ const appsConfigs = [
   Error404PageConfig,
   Error500PageConfig,
   SessionsConfig,
-  BootcampConfig,
   BookDevConfig,
   RegisteredUsersConfig,
   AssignedBookingsConfig,
