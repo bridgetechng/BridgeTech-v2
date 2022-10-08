@@ -11,10 +11,9 @@ import CropEasy from './crop/CropEasy';
 import '../../app.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { createProfile, fetchProfile, uploadImage } from 'redux/actions/createDev.action';
+import { createProfile, fetchProfile, uploadImage } from 'redux/actions/profile.action';
 import { resetMsg } from 'redux/reducers/profile.slice';
 import { fb, static_img } from 'config/firebase';
-import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -82,17 +81,15 @@ export default function ProfileForm() {
   
 
     const initialFValues = {
-      uid: uuidv4(),
-      firstName:  '',
-      lastName:  '',
-      intro:  '',
-      skills_needed:  '',
-      isTechnical:  '',
-      lookingFor:  '',
-      city:  '',
-      skillset: '',
-      email:'',
-      phoneNumber:''
+      id: user.uid,
+      firstName: createDevData.firstName == '' ? '' : createDevData.firstName,
+      lastName: createDevData.lastName == '' ? '' : createDevData.lastName,
+      intro: createDevData.intro == '' ? '' : createDevData.intro,
+      skills_needed: createDevData.skills_needed == '' ? '' : createDevData.skills_needed,
+      isTechnical: createDevData.isTechnical == '' ? 'nil' : createDevData.isTechnical,
+      lookingFor: createDevData.lookingFor == '' ? 'nil' : createDevData.lookingFor,
+      city: createDevData.city == '' ? '' : createDevData.city,
+      skillset: createDevData.skillset == '' ? '' : createDevData.skillset,
       // hireDate: new Date(),
       // isPermanent: false,
   }
@@ -171,17 +168,9 @@ export default function ProfileForm() {
            const skills_needed = values.skills_needed;
            const isTechnical = values.isTechnical;
            const lookingFor = values.lookingFor;
-           const uid = values.uid;
-           const phoneNumber = values.phoneNumber;
-           const email = values.email;
-           const firstName = values.firstName;
-           const lastName = values.lastName;
 
-          const profile = {uid,firstName,lastName ,intro, skillset, city, skills_needed, isTechnical, lookingFor,email,phoneNumber};
-
-          
-
-          console.log(profile);
+          const profile = { firstName,LastName ,intro, skillset, city, skills_needed, isTechnical, lookingFor};
+          console.log('Logged User: ', fb.auth().currentUser.uid);
           if(photoURL == static_img){
           dispatch(createProfile(profile, user, file, resetForm, photoURL));
           }else{
@@ -220,7 +209,7 @@ export default function ProfileForm() {
             <Grid container spacing={4}>
                 <Grid item xs={12} sm={6}>
                 <Controls.Input
-                        name="firstName"
+                        name="intro"
                         label="First Name"
                         value={values.firstName}
                         onChange={handleInputChange}
@@ -228,12 +217,12 @@ export default function ProfileForm() {
                         rows={2}
                         maxRows={4}
                     />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
+                    {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
                 <Controls.Input
-                        name="lastName"
+                        name="intro"
                         label="Last Name"
                         value={values.lastName}
                         onChange={handleInputChange}
@@ -241,33 +230,7 @@ export default function ProfileForm() {
                         rows={2}
                         maxRows={4}
                     />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                <Controls.Input
-                        name="email"
-                        label="Email"
-                        value={values.email}
-                        onChange={handleInputChange}
-                        error={errors.email}
-                        rows={2}
-                        maxRows={4}
-                    />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                <Controls.Input
-                        name="phoneNumber"
-                        label="phone Number"
-                        value={values.phoneNumber}
-                        onChange={handleInputChange}
-                        error={errors.email}
-                        rows={2}
-                        maxRows={4}
-                    />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
+                    {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -280,7 +243,7 @@ export default function ProfileForm() {
                         rows={2}
                         maxRows={4}
                     />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
+                    {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
                
@@ -304,7 +267,7 @@ export default function ProfileForm() {
                         options={skillSetService.getSkillset()}
                         error={errors.skillset}
                     />
-                    {/*showError ? <p style={{color: 'red'}}>This field is required.</p> : ''*/}
+                    {showError ? <p style={{color: 'red'}}>This field is required.</p> : ''}
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -323,7 +286,7 @@ export default function ProfileForm() {
         <Grid item xs={12} sm={6}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <label htmlFor="profilePhoto">
-          <p>Upload his/her profile pic</p><br/>
+          <p>Upload your profile pic</p><br/>
             <input
               accept="image/*"
               id="profilePhoto"

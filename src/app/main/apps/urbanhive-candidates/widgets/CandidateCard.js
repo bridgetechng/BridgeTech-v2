@@ -21,7 +21,7 @@ import '../style/swipe.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllUsers, fetchRealTimeConnections, fetchRealTimeConnections2, initiateConnection } from 'redux/actions/user.action';
+import { fetchAllUsers, fetchRealTimeConnections, fetchRealTimeConnections2, initiateConnection, rollOverConnections } from 'redux/actions/user.action';
 import { fb } from 'config/firebase';
 import { timeSince } from 'config/getTimeStamp';
 import { updateLastActive } from 'redux/actions/auth.action';
@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
       },
     },
+    divider: {
+      background: '#f4a50c',
+  },
   }));
 
 
@@ -82,6 +85,10 @@ function CandidateCard () {
 
 // function inviteSkip(type, user2) {
 const inviteSkip = (type, user2) => {
+  if(user.usedConnection >= 5 && type != -1){
+    alert('Sorry, You have 0 connection limit for this month');
+    return
+  }else{
   if(type == 1){
     notifyInvite();
   }else if(type == 0){
@@ -89,13 +96,24 @@ const inviteSkip = (type, user2) => {
   }else if(type == -1){
     notifyUndo();
   }
-
+}
   if(type != -1){
-   dispatch(initiateConnection(type, user.uid, user2));
+   dispatch(initiateConnection(type, user.uid, user2, user.usedConnection));
   }
 }
 
+const rollOver = () => {
+  // dispatch(rollOverConnections());
+  let isFirstDayOfMonth =  new Date().toISOString().slice(8, 10) === "01";
+
+isFirstDayOfMonth 
+     ? console.log( "Yes, Today is first day of month:- " +  isFirstDayOfMonth )
+     : console.log("No, Today date is:- " + isFirstDayOfMonth )
+}
+
   
+
+
 useEffect(() => {
    dispatch(fetchAllUsers(user.uid));
    dispatch(updateLastActive(user.uid));
@@ -136,7 +154,6 @@ useEffect(() => {
   // console.log(output);
 
 
-
 // const userList = allUsers.length ? (
 const userList = output.length ? (
   // allUsers.map(users => {
@@ -174,10 +191,6 @@ const userList = output.length ? (
               <Typography variant="body2" gutterBottom style={{ fontSize: '18px' }}>
                 <b>{users.city}</b>
               </Typography>
-              <br/>
-              <Typography variant="body2" gutterBottom style={{ fontSize: '15px' }}>
-                <b>{users.skillset} -: </b>({users.isTechnical == 'yes' ? 'Technical' : 'Not Technical'})
-              </Typography>
             </Grid>
           </Grid>
        
@@ -193,16 +206,17 @@ const userList = output.length ? (
        {/* <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group"> */}
        <ButtonGroup size="large" variant="contained" color="primary" aria-label="large contained primary button group">
         <Button onClick={() => {reactSwipeEl.next(); inviteSkip(0, users.uid);}} style={{ backgroundColor: !canSwipe && 'black' }}>Skip</Button>
-        <Button onClick={() => {reactSwipeEl.prev(); inviteSkip(-1, users.uid);}} style={{ backgroundColor: '#0891B2', color: '#f4a50c' }} >Undo</Button>
+        <Button onClick={() => {reactSwipeEl.prev(); inviteSkip(-1, users.uid);}} style={{ backgroundColor: 'black', color: '#f4a50c' }} >Undo</Button>
         {users.uid != user.uid ? 
         <Button onClick={() => {reactSwipeEl.next(); {users.invited_amt > 0 ? alert('You have already invited this user') : inviteSkip(1, users.uid)};}} style={{ backgroundColor: !canSwipe && 'black' }}>Invite</Button>
         // : users.invited_amt > 0 ? <Button onClick={() => {reactSwipeEl.next(); }} style={{ backgroundColor: !canSwipe && '#1B2330' }}>Invite</Button> :
+        // #0891B2
         : <Button onClick={() => {alert('You cannot invite yourself');}} style={{ backgroundColor: '#F6F7F9', color: 'black'}}>Invite</Button>
         }
 
         </ButtonGroup>
        </div><br/>
-       <center><p>(You have <b>5</b> invites left this month.)</p></center>
+       <center><p>(You have <b>{user.monthlyConnection - user.usedConnection}</b> invites left this month.)</p></center>
        </Box>
        
         </Grid>
@@ -211,6 +225,8 @@ const userList = output.length ? (
        
        <Grid item container>
         <Box m={0} p={2}>
+        {/* <Button onClick={rollOver} style={{ backgroundColor: 'black', color: 'white'}}>Roll Over Invite</Button> */}
+        
         <h4><b>Intro</b></h4>
         {users.intro ? parseInt(users.intro.length) > 35 
          ?
@@ -218,6 +234,15 @@ const userList = output.length ? (
          :
         <p>{users.intro + ' (: ................................................... :)'}</p>
         : 'This user does not have an intro yet!'}
+        <br/>
+        <h4><b>Technical</b></h4>
+        {/* <Divider classes={{root: classes.divider}} /> */}
+        {users.isTechnical == 'yes' ? 'Yes' : 'No'}
+        <br/><br/>
+        
+        <h4><b>Skillset</b></h4>
+        {/* <Divider classes={{root: classes.divider}} /> */}
+        {users.skillset}
         </Box>
         </Grid></Grid>
        </Grid>

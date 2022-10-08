@@ -86,7 +86,7 @@ const navigationConfigAdmin = [
       },
     ],
   },
-   
+  
 ];
 
 export default navigationConfigAdmin;

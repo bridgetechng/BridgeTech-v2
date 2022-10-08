@@ -21,7 +21,7 @@ import { AddBoxOutlined } from '@material-ui/icons';
 
 /*REDUX ACTIONS AND FIREBASE */
 import { fetchAllAdminUsers, fetchRealTimeConnections, fetchRealTimeConnections2, initiateConnection } from 'redux/actions/adminUser.action';
-
+import { fb } from 'config/firebase';
 /*REDUX ACTIONS AND FIREBASE */
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +32,30 @@ const useStyles = makeStyles(theme => ({
 
 
 
-
+const columns = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'firstName', headerName: 'Name', width: 130 },
+  { field: 'lastName', headerName: 'Email Address', width: 130 },
+  {
+    field: 'phoneNumber',
+    headerName: 'Developer',
+    type: 'string',
+    width: 130,
+  },
+  {
+    field: 'email',
+    headerName: 'Date',
+    sortable: true,
+    width: 160,
+   
+  },
+  {
+    field: 'addBox',
+    headerName: 'Alter Date',
+    
+    width: 130,
+  },
+];
 
 let rows = [
  /* { id: 1, lastName: 'Elon', firstName: 'Tesla', phoneNumber:'09035197246', email: 'ogorkelvin289@gmail.com'},
@@ -69,7 +92,7 @@ export default function BasicTable() {
   return (
       <>
       
-    <h1>BridgeTech Advance(All Users)</h1>
+    <h1>BridgeTech Advance All Users</h1>
      <br/>
     <TableContainer component={Paper} >
       <Table sx={{ minWidth: 650 }}  aria-label="simple table">
@@ -81,7 +104,7 @@ export default function BasicTable() {
             <TableCell align="center">Email</TableCell>
             <TableCell align="center">Phone Number</TableCell>
             
-            <TableCell align="center">Registered On</TableCell>
+            <TableCell align="center">Location</TableCell>
             
           </TableRow>
 
@@ -101,7 +124,7 @@ export default function BasicTable() {
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.phone && "0"+row.phone}</TableCell>
              
-              <TableCell align="center">{new Date(row.registeredOn.seconds*1000).toLocaleDateString()}</TableCell>
+              <TableCell align="center">{row.city}</TableCell>
              
             </TableRow>
           ))}

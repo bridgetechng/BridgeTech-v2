@@ -19,7 +19,6 @@ import Autosuggest from 'react-autosuggest';
 import { useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { selectFlatNavigation } from 'app/store/fuse/navigationSlice';
-import { selectFlatNavigationAdmin } from 'app/store/fuse/navigationAdminSlice';
 
 function renderInputComponent(inputProps) {
   const { variant, classes, inputRef = () => {}, ref, ...other } = inputProps;
@@ -220,9 +219,7 @@ function reducer(state, action) {
 }
 
 function FuseSearch(props) {
-  const { user } = useSelector((state) => state.login);
-
-  const navigation = useSelector(user.isAdmin?selectFlatNavigationAdmin:selectFlatNavigation);
+  const navigation = useSelector(selectFlatNavigation);
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const classes = useStyles(props);
