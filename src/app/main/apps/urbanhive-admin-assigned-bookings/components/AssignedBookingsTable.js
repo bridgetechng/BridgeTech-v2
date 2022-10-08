@@ -44,7 +44,7 @@ export default function BasicTable() {
   const dispatch = useDispatch();
   
   /*getting reducers from our dispatched actions, even though they have thier own empty values before dispatches take place */
-  const { allAppointments, error,message, isLoading } = useSelector((state) => state.appointments);
+  const {allAppointments, error,message, isLoading } = useSelector((state) => state.appointments);
   const { user } = useSelector((state) => state.login);
 
   useEffect(() => {

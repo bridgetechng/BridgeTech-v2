@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   allAppointments: [],
-  SelectedAppointment:{time:new Date(),developerBooked:"None",time:new Date(),},
+  SelectedAppointment:{topic:"Loading",developerBooked:"None",time:new Date(),},
   isLoading: false,
   appointmentUpdated:false,
   info: '',
@@ -18,6 +18,7 @@ const appointmentsSlice = createSlice({
         state.isLoading = true;
         state.error = '';
         state.message = '';
+        state.allAppointments=[];
       },
       fetchAppointmentsSuccess: (state, action) => {
         state.isLoading = false;

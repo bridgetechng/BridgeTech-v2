@@ -72,7 +72,7 @@ const navigationConfig = [
       },
     ],
   },
-  {
+  /*{
     id: 'admin',
     title: 'Admin',
     type: 'group',
@@ -111,7 +111,7 @@ const navigationConfig = [
         url: '/apps/admin/registeredUsers',
       },
     ]
-  }
+  }*/
 ];
 
 export default navigationConfig;
