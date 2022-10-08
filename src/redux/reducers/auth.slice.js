@@ -6,6 +6,8 @@ const initialState = {
     uid: '',
     name: '',
     email: '',
+    monthlyConnection: null,
+    usedConnection: null
   },
   isLoading: false,
   isAuth: false,
@@ -41,6 +43,9 @@ const loginSlice = createSlice({
       (state.isLoading = false);
         (state.error = payload.errorMessage);
     },
+    updateUsedConnection: (state, action) => {
+      state.user.usedConnection = action.payload.usedConnectionCount;
+  },
     logoutPending: (state) => {
       state.isLoading = true;
     },
@@ -77,6 +82,7 @@ export const {
   loginPending,
   loginSuccess,
   loginFailed,
+  updateUsedConnection,
   logoutPending,
   logoutSuccess,
   signupPending,
