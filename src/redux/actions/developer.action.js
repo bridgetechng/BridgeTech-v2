@@ -28,7 +28,7 @@ import { clearChat } from 'redux/reducers/chat.slice';
     
 };
 
- /*i havent done any of the actions here yet, here and below */
+ /*i havent done any of the actions here yet, here and below(Dagogo) */
 export const fetchRealTimeDevelopers = (uid) => async (dispatch) => {
         dispatch(fetchDevelopersPending());
       
