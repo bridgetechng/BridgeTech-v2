@@ -85,7 +85,7 @@ function CandidateCard () {
 
 // function inviteSkip(type, user2) {
 const inviteSkip = (type, user2) => {
-  if(user.usedConnection >= 5 && type != -1){
+  if(user.usedConnection >= 5 && type == 1 ){
     alert('Sorry, You have 0 connection limit for this month');
     return
   }else{

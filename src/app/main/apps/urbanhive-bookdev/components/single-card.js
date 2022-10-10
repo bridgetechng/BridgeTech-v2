@@ -434,6 +434,107 @@ function BookDevCard () {
         </Paper>
         <br/>
 
+          <Paper
+          sx={{
+            p: 1,
+            pt: 2,
+            pb: 2,
+            margin: 'auto',
+            // maxWidth: 500,
+            flexGrow: 1,
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+          }}
+        >
+          <Grid container spacing={2}>
+            <Grid item>
+            <Avatar alt="Profile Pic" src='assets/images/instructors/emma.jpg' style={{ width: '130px', height: '140px'}} />
+              {/* <ButtonBase sx={{ width: 128, height: 128 }}>
+              <Img alt="complex" src="assets/images/instructors/emma.jpg" />
+              </ButtonBase> */}
+            </Grid>
+            <Grid item xs={12} sm container spacing={2}>
+              <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                  <h2 style={{ fontSize: '19px'}}><b>Fullstack Developer</b></h2>
+                  <p style={{ fontSize: '16px'}}>Farok Amoo</p>
+                </Grid>
+              </Grid>
+              
+              <Grid item xs direction="column" spacing={2}>
+              <Box display="flex" alignItems="center" className={classes.box}>
+              <Grid item xs={6} sm container spacing={1} alignItems="center"
+               justify="center">
+              <Grid item>
+              <TextField
+               onChange={(e) => { setDate(e.target.value); setUid(4); }}
+               className={classes.textField}
+                id="date"
+                label=""
+                type="date"
+                // defaultValue="2022-08-28"
+                defaultValue={today}
+                sx={{ width: 220, fontSize: '20px' }}
+                InputLabelProps={{
+                shrink: true,
+                }}
+            />
+              </Grid>
+              <Grid item alignItems="center"
+               justify="center">
+              <Button variant="contained" color="success" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}>
+                Choose a date
+            </Button>
+              </Grid>
+              </Grid>
+              </Box>
+                <br/>
+                   {/* next column */}
+                   <Grid item >
+                   <Divider>
+                    <Chip label="Select Time ⏲" style={{fontSize: '11px', color: 'black'}}/>
+                    </Divider>
+                   </Grid>
+                    <br/>
+                  <Grid container justify="center">
+                  <ToggleButtonGroup
+                    style={{paddingLeft: '30px', paddingRight: '20px'}}
+                    color="primary"
+                    value={time}
+                    exclusive 
+                    // onChange={(e) => setTime(e.target.value)}
+                    onChange={handleChange}
+                    aria-label="Platform"
+                    >
+                    <ToggleButton onClick={() => setUser(4, 'time1')} value={'time1'} sx={{ cursor: 'pointer' }}  classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px' }}><b>10am - 11am</b></ToggleButton>
+                    <ToggleButton onClick={() => setUser(4, 'time2')} value={'time2'} sx={{ cursor: 'pointer' }} classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px'}}><b>11am - 12pm</b></ToggleButton>
+                    <ToggleButton onClick={() => setUser(4, 'time3')} value={'time3'} sx={{ cursor: 'pointer' }} classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px'}}><b>12pm - 1pm</b></ToggleButton>
+                    </ToggleButtonGroup>
+                  </Grid>
+
+                  <br/>
+                  <Grid container justify="center">
+                  <ToggleButtonGroup
+                    style={{paddingLeft: '30px', paddingRight: '20px'}}
+                    color="primary"
+                    value={time}
+                    exclusive 
+                    // onChange={(e) => setTime(e.target.value)}
+                    onChange={handleChange}
+                    aria-label="Platform"
+                    >
+                    <ToggleButton onClick={() => setUser(4, 'time4')} value={'time4'} sx={{ cursor: 'pointer' }}  classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px' }}><b>01pm - 02pm</b></ToggleButton>
+                    <ToggleButton onClick={() => setUser(4, 'time5')} value={'time5'} sx={{ cursor: 'pointer' }} classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px'}}><b>02pm - 03pm</b></ToggleButton>
+                    <ToggleButton onClick={() => setUser(4, 'time6')} value={'time6'} sx={{ cursor: 'pointer' }} classes={{ selected: classes2.selected }} style={{fontSize: '13px', outlineColor: 'black', outlineWidth: '1px', outlineStyle: 'solid', margin: '2px'}}><b>03pm - 04pm</b></ToggleButton>
+                    </ToggleButtonGroup>
+                  </Grid>
+
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+        <br/>
+
 
 
 

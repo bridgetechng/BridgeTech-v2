@@ -179,72 +179,6 @@ function InboxSidebar(props) {
   return (
     <div className="flex flex-col flex-auto h-full">
       <AppBar position="static" color="default" elevation={0}>
-        {/* Top header with profile icon and 3 dot btn */}
-        {/* <Toolbar className="flex justify-between items-center px-4">
-          {user && (
-            <div
-              className="relative w-40 h-40 p-0 mx-12 cursor-pointer"
-              onClick={() => dispatch(openUserSidebar())}
-              onKeyDown={() => dispatch(openUserSidebar())}
-              role="button"
-              tabIndex={0}
-            >
-              <Avatar src={user.photoUrl} alt={user.name} className="w-40 h-40">
-                {!user.photoUrl || user.photoUrl === '' ? user.name[0] : ''}
-              </Avatar>
-              <div
-                className="absolute right-0 bottom-0 -m-4 z-10 cursor-pointer"
-                aria-owns={statusMenuEl ? 'switch-menu' : null}
-                aria-haspopup="true"
-                onClick={handleStatusMenuClick}
-                onKeyDown={handleStatusMenuClick}
-                role="button"
-                tabIndex={0}
-              >
-                <StatusIcon status={user.status} /> 
-                <StatusIcon status={"Welcome to bridge tech, a platform that gives you to ability to connect with minded likes"} />
-              </div>
-
-              <Menu
-                id="status-switch"
-                anchorEl={statusMenuEl}
-                open={Boolean(statusMenuEl)}
-                onClose={handleStatusClose}
-              >
-                {statusArr.map((status) => (
-                  <MenuItem
-                    onClick={(ev) => handleStatusSelect(ev, status.value)}
-                    key={status.value}
-                  >
-                    <ListItemIcon className="min-w-40">
-                      <StatusIcon status={status.value} />
-                    </ListItemIcon>
-                    <ListItemText primary={status.title} />
-                  </MenuItem>
-                ))}
-              </Menu>
-            </div>
-          )}
-
-          <div>
-            <IconButton
-              aria-owns={moreMenuEl ? 'chats-more-menu' : null}
-              aria-haspopup="true"
-              onClick={handleMoreMenuClick}
-            >
-              <Icon>more_vert</Icon>
-            </IconButton>
-            <Menu
-              id="chats-more-menu"
-              anchorEl={moreMenuEl}
-              open={Boolean(moreMenuEl)}
-              onClose={handleMoreMenuClose}
-            >
-              <MenuItem onClick={handleMoreMenuClose}>Profile</MenuItem>
-              <MenuItem onClick={handleMoreMenuClose}>Logout</MenuItem>
-            </Menu>
-          </div>
-        </Toolbar> */}
         {useMemo(
           () => (
             <Toolbar className="px-16">
@@ -319,16 +253,26 @@ function InboxSidebar(props) {
                   </motion.div>
                 )}
 
-                {connectedUsersOutput.map((user) => (
-                  <motion.div variants={item} key={user.uid}>
-                    <ContactListItem
-                      user={user}
-                    //   onContactClick={(contactId) => dispatch(getChat({ contactId, isMobile }))}
-                      onContactClick={() => initChat(user, isMobile)}
-                    />
-                  </motion.div>
-                ))}
-
+              
+                {
+                  connectedUsersOutput.length ? (
+                    connectedUsersOutput.map((user) => {
+                      return(
+                        <motion.div variants={item} key={user.uid}>
+                        <ContactListItem
+                          user={user}
+                        //   onContactClick={(contactId) => dispatch(getChat({ contactId, isMobile }))}
+                          onContactClick={() => initChat(user, isMobile)}
+                        />
+                      </motion.div>
+                      );
+                      })
+                    ) : (
+                      <div className="container">
+                          <center><p className="center">No available chat yet</p></center>
+                      </div>
+                    )
+                }
                 {/* {filteredContacts.length > 0 && (
                   <motion.div variants={item}>
                     <Typography className="font-medium text-20 px-16 py-24" color="secondary">

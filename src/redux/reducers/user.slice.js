@@ -62,6 +62,9 @@ const userSlice = createSlice({
      state.isLoading = false;
      state.info = payload.errorMessage;
   },
+  resetConnects: (state, { payload }) => {
+    state.connectedUsers = [];
+ },
     clearUser: (state) => {
       return {
         ...initialState,
@@ -82,6 +85,7 @@ export const {
  initiateSuccess,
  initiateSuccess2,
  initiateFailed,
+ resetConnects,
  clearUser,
 } = actions;
 
