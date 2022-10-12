@@ -26,6 +26,8 @@ import AssignedBookingsConfig from './urbanhive-admin-assigned-bookings/Assigned
 import DeveloperListConfig from './urbanhive-admin-developer-list/DeveloperListConfig';
 import CreateNewDeveloperConfig from './urbanhive-admin-create-developer/CreateNewDeveloperConfig';
 import EditAppointmentConfig from './urbanhive-admin-edit-appointment/EditAppointmentConfig';
+import BootCampConfig from './urbanhive-bootcamp/BootcampConfig';
+import BootCampDetailsConfig from './urbanhive-bootcamp-details/BootCampDetailsConfig';
 
 
 const appsConfigs = [
@@ -44,7 +46,9 @@ const appsConfigs = [
   AssignedBookingsConfig,
   DeveloperListConfig,
   CreateNewDeveloperConfig,
-  EditAppointmentConfig
+  EditAppointmentConfig,
+  BootCampConfig,
+  BootCampDetailsConfig,
   // AnalyticsDashboardAppConfig,
   // ProjectDashboardAppConfig,
   // MailAppConfig,

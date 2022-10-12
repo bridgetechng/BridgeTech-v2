@@ -12,13 +12,13 @@ i18next.addResourceBundle('ar', 'navigation', ar);
 const user = 'admin';
 
 const navigationConfig = [
-  {
-    id: 'dasboard',
-    title: 'Dashboard',
-    type: 'group',
-    icon: 'dashboard',
-    url: '/apps/coming-soon1',
-  },
+  // {
+  //   id: 'dasboard',
+  //   title: 'Dashboard',
+  //   type: 'group',
+  //   icon: 'dashboard',
+  //   url: '/apps/coming-soon1',
+  // },
   {
     id: 'coding',
     title: 'Coding',

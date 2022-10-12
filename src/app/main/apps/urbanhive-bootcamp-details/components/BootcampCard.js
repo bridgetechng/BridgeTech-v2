@@ -1,5 +1,5 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 import {Typography,Icon,AppBar,Card,CardHeader,CardActions,CardContent,CardMedia,CssBaseline,Grid,Container} from '@material-ui/core';
@@ -37,7 +37,7 @@ import TheatersIcon from '@mui/icons-material/Theaters';*/
 
 
 function BootcampCard() {
-const history = useHistory();
+
  
 
 const theme = createTheme({
@@ -54,6 +54,67 @@ const theme = createTheme({
 
  /*page regulation states */
  const [page1,setPage1] = useState(true)
+ const [page2,setPage2] = useState(false)
+ const [page3,setPage3] = useState(false)
+ const [page4,setPage4] = useState(false)
+ const [page5,setPage5] = useState(false)
+ 
+ /*page regulation states ending */
+
+  /* PAGE HANDLER BUTTON SECTION */
+
+  const page1Handler = () => {
+    setPage1(true)
+    setPage2(false)
+    setPage3(false)
+    setPage4(false)
+    setPage5(false)
+    
+  } 
+
+  const page2Handler = () => {
+    setPage1(false)
+    setPage2(true)
+    setPage3(false)
+    setPage4(false)
+    setPage5(false)
+    
+  } 
+
+  const page3Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(true)
+    setPage4(false)
+    setPage5(false)
+    
+    
+  } 
+
+
+  const page4Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(false)
+    setPage4(true)
+    setPage5(false)
+    
+    
+    
+  } 
+
+
+  const page5Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(false)
+    setPage4(false)
+    setPage5(true)
+    
+     
+  } 
+ /* PAGE HANDLER BUTTON SECTION CLOSING */
+
 
 
 
@@ -124,14 +185,15 @@ const theme = createTheme({
          
           <Stack  spacing={6} >
           
-         <Button onClick={() => {history.push('/apps/bootcamp-details')}} variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
+         <Link to =''><Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
+          
           <Icon className="text-20" >
              list
            </Icon>
              &nbsp;&nbsp;
             <b>Details</b> 
             
-          </Button>
+          </Button></Link>
           
          
           <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem"}}>

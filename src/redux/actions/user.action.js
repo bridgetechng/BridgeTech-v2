@@ -1,5 +1,5 @@
 import {fetchUsersPending, fetchUsersSuccess, fetchUsersFailed, fetchRealTimeUsersSuccess, fetchConnectedUserSuccess,
-    initiatePending, initiateSuccess, initiateSuccess2, initiateFailed, clearUser} from '../reducers/user.slice';
+    initiatePending, initiateSuccess, initiateSuccess2, initiateFailed, clearUser, resetConnects} from '../reducers/user.slice';
  import { updateUsedConnection } from 'redux/reducers/auth.slice';
     import { db, fb, auth, storage } from '../../config/firebase';
 import { sendChat } from './chat.action';
@@ -82,20 +82,22 @@ export const initiateConnection = (type, user1, user2, usedConnection) => (dispa
                       }))
                  //after sending default chat message, then update usedConnection
 
-                 console.log('Update Used Connection:- ', docRef);
-                 var userRef = db.collection("users").doc(user1);
-                 userRef.update({
-                    usedConnection: usedConnection + 1,
-                })
-                .then(() => {
-                    const usedConnectionCount = usedConnection + 1;
-                  console.log('Used connection updated:- ', usedConnection);
-                  dispatch(updateUsedConnection({ usedConnectionCount }));
-                })
-                .catch((error) => {
-                  var errorMessage = error.message;
-                  console.log('Error updating used connection:', errorMessage);
-                });
+                  if(type == 1){
+                    console.log('Update Used Connection:- ', docRef);
+                    var userRef = db.collection("users").doc(user1);
+                    userRef.update({
+                       usedConnection: usedConnection + 1,
+                   })
+                   .then(() => {
+                       const usedConnectionCount = usedConnection + 1;
+                     console.log('Used connection updated:- ', usedConnection);
+                     dispatch(updateUsedConnection({ usedConnectionCount }));
+                   })
+                   .catch((error) => {
+                     var errorMessage = error.message;
+                     console.log('Error updating used connection:', errorMessage);
+                   });
+                  }
 
                 })
                 .catch((err) => {
@@ -367,6 +369,36 @@ export const fetchRealTimeConnections2 = (uid) => async (dispatch) => {
                 })
               }
 
+
+              export const unMatchConnect = (user1, user2, history) => async (dispatch) => {
+
+                var unmatch = db.collection('connections')
+                unmatch = unmatch.where('user1','==',user1);
+                unmatch = unmatch.where('user2','==',user2);
+                unmatch.get().then(function(querySnapshot) {
+                  querySnapshot.forEach(function(doc) {
+                    doc.ref.delete();
+                  });
+                }).then(() => {
+                    var unchat = db.collection('chats')
+                    unchat = unmatch.where('user1','==',user1);
+                    unchat = unmatch.where('user2','==',user2);
+                    unchat.get().then(function(querySnapshot) {
+                  querySnapshot.forEach(function(doc) {
+                    doc.ref.delete();
+                  });
+                }).then(() => {
+                    dispatch(resetConnects());
+                    dispatch(fetchConnectedUsers(user1));
+                    dispatch(fetchConnectedUsers2(user1));
+                    alert('You have UnMatched Connection✔');
+                    dispatch(clearUser());
+                    dispatch(clearChat());
+                    window.location.href = '/candidates';
+                })            
+                });
+            
+            };
 
 
         // export const fetchConnectedUsers = (uid) => async (dispatch) => {

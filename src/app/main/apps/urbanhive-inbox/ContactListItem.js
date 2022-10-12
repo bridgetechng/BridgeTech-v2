@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import format from 'date-fns/format';
 import StatusIcon from './StatusIcon';
-import { updateConnection } from 'redux/actions/user.action';
+import { unMatchConnect, updateConnection } from 'redux/actions/user.action';
 
 const useStyles = makeStyles((theme) => ({
   contactListItem: {
@@ -47,6 +47,14 @@ function ContactListItem(props) {
     dispatch(updateConnection(user1, user2, status, history));
   }
   
+  const unMatch = (users) => {
+     const user1 = users.uid;
+     const user2 = user.uid;
+
+     console.log('User 1:- ', user1);
+     console.log('User 2:- ', user2);
+     dispatch(unMatchConnect(user1, user2, history));
+  }
 
   return (
     <ListItem
@@ -111,6 +119,13 @@ function ContactListItem(props) {
       <ButtonGroup size="small" aria-label="small outlined button group">
         <Button style={{color: 'green'}} onClick={() => accRejInvite(props.user, 'accepted')}>Accept</Button>
         <Button style={{color: 'red'}} onClick={() => accRejInvite(props.user, 'rejected')}>Reject</Button>
+     </ButtonGroup> : null
+     }
+
+{
+      props.user.status == 'accepted' ?
+      <ButtonGroup size="small" aria-label="small outlined button group">
+        <Button style={{color: 'orange'}} onClick={() => unMatch(props.user)}>UnMatch</Button>
      </ButtonGroup> : null
      }
 
