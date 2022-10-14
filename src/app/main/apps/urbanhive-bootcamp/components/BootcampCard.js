@@ -219,12 +219,12 @@ const theme = createTheme({
           <Stack  spacing={6} >
          
           
-          <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
+          <Button onClick={() => {history.push('/apps/bootcamp-details')}} variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
           <Icon className="text-20" >
              list
            </Icon>
              &nbsp;&nbsp;
-             <a href="https://youtu.be/qP_dXkHoZ4M" target="_blank" rel="noopener noreferrer" >    <b>Details</b> </a>
+              <b>Details</b>
              
           </Button>
           
