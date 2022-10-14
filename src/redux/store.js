@@ -6,6 +6,7 @@ import userReducer from './reducers/user.slice';
 import adminUserReducer from './reducers/adminUser.slice';
 import developerReducer from './reducers/developer.slice';
 import appointmentsReducer from './reducers/appointments.slice';
+import bootcampReducer from './reducers/bootcamp.slice';
 import chatReducer from './reducers/chat.slice';
 import fuse from '../app/store/fuse';
 import i18n from '../app/store/i18nSlice';
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   adminUser: adminUserReducer,
   developer:developerReducer,
   appointments:appointmentsReducer,
+  bootcamp: bootcampReducer,
   chat: chatReducer,
   fuse,
   i18n,
