@@ -13,6 +13,8 @@ import { fb, db, auth } from 'config/firebase';
 import Icon from '@material-ui/core/Icon';
 import Typography from '@material-ui/core/Typography';
 import BootcampCard from './components/BootcampCard';
+import BootCampDetailsCard from './components/BootCampDetails';
+
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -43,30 +45,10 @@ function BootcampApp(props) {
         rightSidebar: 'w-288 border-0 py-12',
         content: classes.content,
       }}
-      // header={
-      //   <div className="flex flex-1 items-center justify-between p-12 md:p-24" style={{backgroundColor: "#000000"}}>
-      //     <div className="flex flex-col">
-      //       <div className="flex items-center mb-16">
-      //         <Icon className="text-18" color="action">
-      //           home
-      //         </Icon>
-      //         <Icon className="text-16" color="action">
-      //           chevron_right
-      //         </Icon>
-      //         <Typography color="textSecondary" className="font-medium">
-      //           SessionsApp
-      //         </Typography>
-      //       </div>
-      //       <Typography variant="h6" className="text-18 sm:text-24 font-semibold">
-      //         Book a Developer
-      //       </Typography>
-      //     </div>
-      //   </div>
-      // }
       content={
         // <div className="p-12 lg:ltr:pr-0 lg:rtl:pl-0">
         <div className="p-12 md:p-24 max-w-2xl">
-           <BootcampCard />
+           <BootCampDetailsCard/>
         </div>
       }
       // rightSidebarContent={<CandidateAppSidebar />}

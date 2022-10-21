@@ -86,46 +86,7 @@ const navigationConfigAdmin = [
       },
     ],
   },
-   {
-    id: 'admin',
-    title: 'Admin',
-    type: 'group',
-    icon: 'web',
-    children: [
-      {
-        id: 'create-developer',
-        title: 'Create Developer',
-        type: 'item',
-        icon: 'group_add',
-        url: '/apps/admin/createdeveloper',
-        // url: '/apps/coming-soon2',
-      },
-      {
-        id: 'developer-list',
-        title: 'Developer List',
-        type: 'item',
-        icon: 'list',
-       // url: '/apps/bookdev',
-         url: '/apps/admin/developerlist',
-      },
-      {
-        id: 'booked-classes',
-        title: 'Booked Classes',
-        type: 'item',
-        icon: 'event_available',
-       // url: '/apps/bookdev',
-        url: '/apps/admin/assignedbookings',
-      },
-      {
-        id: 'registered-users',
-        title: 'Registered Users',
-        type: 'item',
-        icon: 'group',
-       // url: '/apps/bookdev',
-        url: '/apps/admin/registeredUsers',
-      },
-    ]
-  }
+  
 ];
 
 export default navigationConfigAdmin;
