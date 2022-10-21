@@ -11,8 +11,6 @@ const initialState = {
     isTechnical: '',
     lookingFor: '',
     photoUrl: '',
-    email:'',
-    phoneNumber:'',
   },
   isLoading: false,
   error: '',
@@ -23,31 +21,31 @@ const createDevSlice = createSlice({
   name: 'createDev',
   initialState,
   reducers: {
-    createDevPending: (state) => {
+    createProfilePending: (state) => {
       state.isLoading = true;
       state.error = '';      /*consider changing it to createDevPending, createDevSuccess etc etc */
       state.message = '';
     },
-    createDevSuccess: (state, action) => {
+    createProfileSuccess: (state, action) => {
         state.isLoading = false;
-        /*state.createDevData = action.payload.profileData;*/
+        state.createDevData = action.payload.createDevData;
         state.error = '';
-        state.message ="Developer successfully created" /* I WILL MAKE THE MESSAGE COME FROM THE ACTION LATER action.payload.msg*/;
+        state.message = action.payload.msg;
     },
-    createDevFailed: (state, { payload }) => {
+    createProfileFailed: (state, { payload }) => {
       (state.isLoading = false);
         (state.error = payload.errorMessage);
     },
-    /*fetchDevPending: (state) => {
+    fetchProfilePending: (state) => {
       state.isLoading = true;
       state.error = '';
       state.message = '';
     },
-    fetchDevSuccess: (state, action) => {
+    fetchProfileSuccess: (state, action) => {
         state.isLoading = false;
         state.createDevData = action.payload.createDevData;
     },
-    fetchDevFailed: (state, { payload }) => {
+    fetchProfileFailed: (state, { payload }) => {
       (state.isLoading = false);
         (state.error = payload.errorMessage);
         (state.message = payload.msg);
@@ -57,25 +55,25 @@ const createDevSlice = createSlice({
       state.error = '';
       state.message = '';
   },
-    clearDev: (state) => {
-     
+    clearProfile: (state) => {
+      // reset: () => initialState
       return {
         ...initialState,
       };
-    },*/
+    },
   },
 });
 
 const { actions, reducer } = createDevSlice;
 
 export const {
-  createDevPending,
-  createDevSuccess,
-  createDevFailed,
- /*fetchDevPending,
-  fetchDevSuccess,
-  fetchDevFailed,
-  clearDev,*/
+  createProfilePending,
+  createProfileSuccess,
+  createProfileFailed,
+  fetchProfilePending,
+  fetchProfileSuccess,
+  fetchProfileFailed,
+  clearProfile,
   resetMsg,
 } = actions;
 

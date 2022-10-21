@@ -49,7 +49,6 @@ export const signup = (user, history) => async (dispatch) => {
           lastActive: new Date().getTime(),
           monthlyConnection: 5,
           usedConnection: 0,
-          registeredOn:new Date()
         })
       }).then(() => {
         dispatch(signupSuccess());

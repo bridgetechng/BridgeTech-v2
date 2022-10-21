@@ -1,5 +1,5 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 import {Typography,Icon,AppBar,Card,CardHeader,CardActions,CardContent,CardMedia,CssBaseline,Grid,Container} from '@material-ui/core';
@@ -15,28 +15,30 @@ import { red } from '@mui/material/colors';
 
 
 
-import TNAIL1 from  "../../../urbanhive-assets/urbanhive-thumbnails/fundamentals1.png";
+
+import IconButton from '@mui/material/IconButton';
 
 import AVTR1 from "../../../urbanhive-assets/gray-copy.jpg" ;
+import AVTR2 from "../../../urbanhive-assets/farouk-amoo.png" ;
 
+import TNAIL1 from  "../../../urbanhive-assets/urbanhive-thumbnails/fundamentals1.png";
+import TNAIL2 from  "../../../urbanhive-assets/urbanhive-thumbnails/fundamentals2.png";
+import TNAIL3 from  "../../../urbanhive-assets/urbanhive-thumbnails/CSS-units.png";
+import TNAIL4 from  "../../../urbanhive-assets/urbanhive-thumbnails/flutter-thumbnail.png";
+import TNAIL5 from  "../../../urbanhive-assets/urbanhive-thumbnails/flutter-thumbnail.png";
+import TNAIL6 from  "../../../urbanhive-assets/urbanhive-thumbnails/flutter-thumbnail.png";
+import TNAIL7 from  "../../../urbanhive-assets/urbanhive-thumbnails/CSS-position.png";
+import TNAIL8 from  "../../../urbanhive-assets/urbanhive-thumbnails/code-editor.png";
+import TNAIL9 from  "../../../urbanhive-assets/urbanhive-thumbnails/first-webpage.png";
+
+
+/*import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import TheatersIcon from '@mui/icons-material/Theaters';*/
 
 
 function BootcampCard() {
-const history = useHistory();
- 
 
-const course = [
-  {id: 1, author: "BY: DAGOGO CLINTON URANTA", title:"Flutter / React Native Bootcamp", 
-  img1: AVTR1, img2: "assets/images/bootcamp/FlutterReact.jpg", qty: 4, desc: "This bootcamp is split into two parts,"+ 
-  "First we talk about React,state management, props and class based components. "
-  +"Then we go into flutter,talking about elements of the Dart language."
-},
-  {id: 1, author: "BY: DAGOGO CLINTON URANTA", title:"Node.JS Bootcamp", 
-  img1: AVTR1, img2: "assets/images/bootcamp/NodeJS.png", qty: 4, desc: "This bootcamp is split into two parts,"+ 
-  "First we talk about intro to node,advantages of node over other backend services, sync & async function "
-  +"Then we go into resful api's."
-},
-]
+ 
 
 const theme = createTheme({
   palette: {
@@ -52,6 +54,67 @@ const theme = createTheme({
 
  /*page regulation states */
  const [page1,setPage1] = useState(true)
+ const [page2,setPage2] = useState(false)
+ const [page3,setPage3] = useState(false)
+ const [page4,setPage4] = useState(false)
+ const [page5,setPage5] = useState(false)
+ 
+ /*page regulation states ending */
+
+  /* PAGE HANDLER BUTTON SECTION */
+
+  const page1Handler = () => {
+    setPage1(true)
+    setPage2(false)
+    setPage3(false)
+    setPage4(false)
+    setPage5(false)
+    
+  } 
+
+  const page2Handler = () => {
+    setPage1(false)
+    setPage2(true)
+    setPage3(false)
+    setPage4(false)
+    setPage5(false)
+    
+  } 
+
+  const page3Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(true)
+    setPage4(false)
+    setPage5(false)
+    
+    
+  } 
+
+
+  const page4Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(false)
+    setPage4(true)
+    setPage5(false)
+    
+    
+    
+  } 
+
+
+  const page5Handler = () => {
+    setPage1(false)
+    setPage2(false)
+    setPage3(false)
+    setPage4(false)
+    setPage5(true)
+    
+     
+  } 
+ /* PAGE HANDLER BUTTON SECTION CLOSING */
+
 
 
 
@@ -76,102 +139,101 @@ const theme = createTheme({
         <hr/>
     {page1 &&
        <>
-       {
-        course.map((c => (
-          <Grid container spacing={2} justify="center" style={{marginTop:"2rem", marginBottom:"2rem"}}>
+        <Grid container spacing={2} justify="center" style={{marginTop:"2rem", marginBottom:"2rem"}}>
        
        
-          <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              <img src={c.img1}/>
-            </Avatar>
-          }
+        <Grid item xs={4}>
+        <Card sx={{ maxWidth: 345 }}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            <img src={AVTR1}/>
+          </Avatar>
+        }
+       
+        title="BY: DAGOGO CLINTON URANTA"
+        subheader="May 12, 2022"
+      />
+      <CardMedia
+        component="img"
+        height="170"
+        image={TNAIL1}
+        alt="Paella dish"
+      />
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+       <b> React JS/Flutter Bootcamp</b><br/>  (16 Sessions).
+        </Typography>
+      </CardContent>
+      
+    </Card>
+
+        </Grid>
+       
+
+        <Grid item xs={5}>
+        <Typography variant='h5' align="center" color="textPrimary" gutterBottom paragraph> 
+         <b>React JS/Flutter Bootcamp</b> (16 Sessions)
+        </Typography>
+        <p style={{fontSize: '15px'}}>
+         This bootcamp is split into two parts,First we talk about React,
+          state management, props and class based components. Then we go into flutter,
+           talking about elements of the Dart language.
+        </p>
+        </Grid>
+        <Grid item xs={2} direction-xs-column>
          
-          title={c.title}
-          subheader="May 12, 2022"
-        />
-        <CardMedia
-          component="img"
-          height="170"
-          image={c.img2}
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-         <b> {c.title}</b><br/>  ({c.qty} Sessions).
-          </Typography>
-        </CardContent>
-        
-      </Card>
-  
-          </Grid>
+          <Stack  spacing={6} >
+          
+          <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
+          
+          <Icon className="text-20" >
+             list
+           </Icon>
+             &nbsp;&nbsp;
+             <a href="https://youtu.be/N3KLE4I3rNQ"  target="_blank" rel="noopener noreferrer" > <b>Details</b>  </a>
+            
+          </Button>
+          
          
-  
-          <Grid item xs={5}>
-          <Typography variant='h5' align="center" color="textPrimary" gutterBottom paragraph> 
-           <b>{c.title}</b> ({c.qty} Sessions)
-          </Typography>
-          <p style={{fontSize: '15px'}}>
-          {c.desc}
-          </p>
-          </Grid>
-          <Grid item xs={2} direction-xs-column>
-           
-            <Stack  spacing={6} >
-            
-           <Button onClick={() => {history.push('/apps/bootcamp-details')}} variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
-            <Icon className="text-20" >
-               list
-             </Icon>
-               &nbsp;&nbsp;
-              <b>Details</b> 
-              
-            </Button>
-            
-           
-            <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem"}}>
-            <Icon className="text-20" >
-            account_balance_wallet
-             </Icon>
-               &nbsp;
-              <Link to={'/apps/bookdev'} style={{textDecoration:'none',color:"white"}}> <b>Buy</b>  </Link>
-            </Button>
-            
-            <Stack spacing={1} direction="row"  style={{color:"#f2db05"}}>
-               <Icon fontSize="medium" >
-                  star
-                </Icon>
-                <Icon fontSize="medium" >
-                  star
-                </Icon>
-                <Icon fontSize="medium" >
-                  star
-                </Icon>
-                <Icon fontSize="medium" >
-                  star
-                </Icon>
-                <Icon fontSize="medium" >
-                  star
-                </Icon>
-            </Stack>
-            
-            
-            </Stack>
-  
-           
-          </Grid>
+          <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem"}}>
+          <Icon className="text-20" >
+          account_balance_wallet
+           </Icon>
+             &nbsp;
+            <Link to={'/apps/bookdev'} style={{textDecoration:'none',color:"white"}}> <b>Buy</b>  </Link>
+          </Button>
+          
+          <Stack spacing={1} direction="row"  style={{color:"#f2db05"}}>
+             <Icon fontSize="medium" >
+                star
+              </Icon>
+              <Icon fontSize="medium" >
+                star
+              </Icon>
+              <Icon fontSize="medium" >
+                star
+              </Icon>
+              <Icon fontSize="medium" >
+                star
+              </Icon>
+              <Icon fontSize="medium" >
+                star
+              </Icon>
+          </Stack>
+          
+          
+          </Stack>
+
          
         </Grid>
-        )))
-       }
+       
+      </Grid>
 
       <hr/>
      
    
-{/*    
+   
    <Grid container spacing={2} justify="center" style={{marginTop:"2rem", marginBottom:"2rem"}}>
        
          
@@ -219,15 +281,16 @@ const theme = createTheme({
           <Stack  spacing={6} >
          
           
-          <Button onClick={() => {history.push('/apps/bootcamp-details')}} variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
+          <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem" }}>
           <Icon className="text-20" >
              list
            </Icon>
              &nbsp;&nbsp;
-              <b>Details</b>
+             <a href="https://youtu.be/qP_dXkHoZ4M" target="_blank" rel="noopener noreferrer" >    <b>Details</b> </a>
              
           </Button>
-                   
+          
+         
           <Button variant="contained" color="primary" style={{height:"40px",fontSize:"13px",padding:"1rem"}}>
           <Icon className="text-20" >
             account_balance_wallet
@@ -260,7 +323,7 @@ const theme = createTheme({
          
         </Grid>
        
-      </Grid>  */}
+      </Grid> 
     </>
    }
 

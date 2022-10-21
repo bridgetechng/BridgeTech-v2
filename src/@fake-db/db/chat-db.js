@@ -7,7 +7,7 @@ const chatDb = {
 		{
 			id: '5725a680b3249760ea21de52',
 			name: 'Alice Freeman',
-			avatar: '/iassetsmages/avatars/Helen.jpg',
+			avatar: 'assets/images/avatars/Helen.jpg',
 			status: 'online',
 			mood: 'urbanhive your no1 match platform, Don\'t miss on connecting with....',
 			unread: '2'
