@@ -20,6 +20,7 @@
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.8.6",
         "@mui/x-data-grid": "^5.17.3",
+        "@react-spring/web": "^9.5.5",
         "@reduxjs/toolkit": "^1.8.3",
         "apexcharts": "3.27.3",
         "auth0-lock": "11.30.4",
@@ -79,7 +80,7 @@
         "react-router-dom": "5.2.0",
         "react-scripts": "4.0.3",
         "react-select": "3.2.0",
-        "react-spring": "^8.0.23",
+        "react-spring": "^8.x",
         "react-swipe": "^6.0.4",
         "react-swipeable": "6.1.2",
         "react-swipeable-views": "0.14.0",
@@ -167,8 +168,8 @@
             "last 3 safari version"
         ]
     },
-    "engines" : { 
-        "npm" : ">=8.0.0 <9.0.0",
-        "node" : ">=16.0.0 <17.0.0"
-      }
+    "engines": {
+        "npm": ">=8.0.0 <9.0.0",
+        "node": ">=16.0.0 <17.0.0"
+    }
 }
