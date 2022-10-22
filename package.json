@@ -2,6 +2,9 @@
     "name": "bridge-tech-v2",
     "version": "6.2.0",
     "private": true,
+    "engines": {
+        "node": ">=16.17.0"
+    },
     "dependencies": {
         "@date-io/core": "1.3.13",
         "@date-io/date-fns": "1.3.13",
